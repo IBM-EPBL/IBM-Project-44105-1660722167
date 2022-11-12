@@ -30,16 +30,15 @@ def upload():
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], filepath))
 
         upload_img = os.path.join(UPLOAD_FOLDER, filepath)
-        img = Image.open(upload_img).convert("L")  # convert image to monochrome
-        img = img.resize((28, 28))  # resizing of input image
+        img = Image.open(upload_img).convert("L") 
+        img = img.resize((28, 28)) 
 
-        im2arr = np.array(img)  # converting to image
-        im2arr = im2arr.reshape(1, 28, 28, 1)  # reshaping according to our requirement
+        im2arr = np.array(img)  
+        im2arr = im2arr.reshape(1, 28, 28, 1) 
 
         pred = model.predict(im2arr)
 
-        num = np.argmax(pred, axis=1)  # printing our Labels
-
+        num = np.argmax(pred, axis=1)  
         return render_template('prediction.html', num=str(num[0]))
 
 
